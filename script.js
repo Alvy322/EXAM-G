@@ -86,7 +86,7 @@ function renderQuestion() {
 
     const textSpan = document.createElement("span");
     textSpan.className = "option-text";
-    textSpan.textContent = q.options[letter];
+    textSpan.innerHTML = q.options[letter];
 
     item.appendChild(letterSpan);
     item.appendChild(textSpan);
