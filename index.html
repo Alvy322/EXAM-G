@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ulangan Online</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- HALAMAN AWAL (Landing) -->
+  <div id="page-landing" class="page active">
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+
+    <div class="landing-card">
+      <div class="landing-badge">✦ Ujian Online</div>
+      <h1 class="landing-title">Ulangan<br />Harian</h1>
+      <p class="landing-subtitle">Pemrograman Web &amp; Database</p>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-icon">📋</span>
+          <div>
+            <div class="info-label">Jumlah Soal</div>
+            <div class="info-value">20 Soal</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">⏱</span>
+          <div>
+            <div class="info-label">Durasi</div>
+            <div class="info-value">30 Menit</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">📝</span>
+          <div>
+            <div class="info-label">Tipe Soal</div>
+            <div class="info-value">Pilihan Ganda</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="info-icon">🎯</span>
+          <div>
+            <div class="info-label">KKM</div>
+            <div class="info-value">85</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice-box">
+        <div class="notice-title">⚠️ Sebelum Memulai Ujian</div>
+        <ul class="notice-list">
+          <li>Pastikan kamu sudah mempelajari dan mengingat kembali materi yang telah diberikan.</li>
+          <li>Baca setiap soal dengan teliti dan pilih jawaban yang paling tepat.</li>
+          <li>Kerjakan secara <strong>mandiri</strong> dan manfaatkan waktu dengan baik.</li>
+        </ul>
+        <div class="notice-footer">Semangat dan semoga mendapatkan hasil terbaik! 🌟</div>
+      </div>
+
+      <div class="input-group">
+        <label for="studentName">Nama Lengkap Peserta</label>
+        <input
+          type="text"
+          id="studentName"
+          placeholder="Masukkan nama kamu..."
+          autocomplete="off"
+        />
+        <span class="input-error" id="nameError">Nama tidak boleh kosong!</span>
+      </div>
+
+      <div class="landing-buttons">
+        <button class="btn btn-primary btn-lg" onclick="confirmStart()">Mulai Ujian →</button>
+        <button class="btn btn-ghost btn-lg" onclick="showPage('page-history')">Lihat Riwayat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HALAMAN UJIAN -->
+  <div id="page-exam" class="page">
+    <header class="exam-header">
+      <div class="exam-header-left">
+        <div class="exam-name-badge" id="examNameBadge">—</div>
+      </div>
+      <div class="exam-timer-wrap">
+        <span class="timer-icon">⏱</span>
+        <span id="timerDisplay" class="timer-text">30:00</span>
+      </div>
+      <div class="exam-header-right">
+        <button class="btn btn-danger btn-sm" onclick="confirmEnd()">Akhiri Ujian</button>
+      </div>
+    </header>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-label" id="progressLabel">0 / 20 terjawab</span>
+    </div>
+
+    <div class="exam-body">
+      <aside class="question-nav-panel">
+        <div class="nav-panel-title">Navigasi Soal</div>
+        <div class="question-nav-grid" id="questionNavGrid"></div>
+        <div class="nav-legend">
+          <span><span class="legend-dot dot-answered"></span> Terjawab</span>
+          <span><span class="legend-dot dot-current"></span> Aktif</span>
+          <span><span class="legend-dot dot-unanswered"></span> Belum</span>
+        </div>
+      </aside>
+
+      <main class="question-area">
+        <div class="question-card" id="questionCard">
+          <div class="question-number" id="questionNumber">Soal 1</div>
+          <div class="question-text" id="questionText">—</div>
+          <div class="options-list" id="optionsList"></div>
+        </div>
+
+        <div class="question-controls">
+          <button class="btn btn-secondary btn-sm" id="btnPrev" onclick="prevQuestion()">← Sebelumnya</button>
+          <span class="question-counter" id="questionCounter">1 / 20</span>
+          <button class="btn btn-primary btn-sm" id="btnNext" onclick="nextQuestion()">Berikutnya →</button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- HALAMAN HASIL -->
+  <div id="page-result" class="page">
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+
+    <div class="result-card">
+      <div class="result-icon" id="resultIcon">🎉</div>
+      <div class="result-status-badge" id="resultStatusBadge">Lulus</div>
+      <h2 class="result-name" id="resultName">—</h2>
+      <p class="result-subtitle">Ujian telah selesai</p>
+      <p class="result-reason" id="resultReason"></p>
+
+      <div class="result-score-circle">
+        <svg viewBox="0 0 120 120" class="score-svg">
+          <defs>
+            <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#e8748a"/>
+              <stop offset="100%" style="stop-color:#3a8fc1"/>
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="52" class="score-track" />
+          <circle cx="60" cy="60" r="52" class="score-progress" id="scoreProgressCircle" />
+        </svg>
+        <div class="score-inner">
+          <div class="score-number" id="scoreNumber">0</div>
+          <div class="score-pct" id="scorePercent">0%</div>
+        </div>
+      </div>
+
+      <div class="result-stats">
+        <div class="stat-card stat-correct">
+          <span class="stat-icon">✅</span>
+          <div class="stat-val" id="statCorrect">0</div>
+          <div class="stat-lbl">Benar</div>
+        </div>
+        <div class="stat-card stat-wrong">
+          <span class="stat-icon">❌</span>
+          <div class="stat-val" id="statWrong">0</div>
+          <div class="stat-lbl">Salah</div>
+        </div>
+        <div class="stat-card stat-empty">
+          <span class="stat-icon">⬜</span>
+          <div class="stat-val" id="statEmpty">0</div>
+          <div class="stat-lbl">Kosong</div>
+        </div>
+      </div>
+
+      <div class="result-buttons">
+        <button class="btn btn-primary" onclick="showPage('page-landing')">Ujian Baru</button>
+        <button class="btn btn-ghost" onclick="showPage('page-history')">Lihat Riwayat</button>
+        <button class="btn btn-secondary" onclick="showReview()">Review Jawaban</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HALAMAN REVIEW JAWABAN -->
+  <div id="page-review" class="page">
+    <div class="bg-blob blob-1"></div>
+    <div class="review-container">
+      <div class="review-header">
+        <button class="btn btn-ghost btn-sm" id="reviewBackBtn" onclick="showPage('page-result')">← Kembali</button>
+        <h2 class="review-title">Review Jawaban</h2>
+        <div></div>
+      </div>
+      <div id="reviewList" class="review-list"></div>
+    </div>
+  </div>
+
+  <!-- HALAMAN RIWAYAT -->
+  <div id="page-history" class="page">
+    <div class="bg-blob blob-2"></div>
+    <div class="history-container">
+      <div class="history-header">
+        <button class="btn btn-ghost btn-sm" onclick="showPage('page-landing')">← Kembali</button>
+        <h2 class="history-title">Riwayat Ujian</h2>
+        <button class="btn btn-danger btn-sm" onclick="clearHistory()">Hapus Semua</button>
+      </div>
+      <div id="historyList" class="history-list"></div>
+    </div>
+  </div>
+
+  <!-- POPUP KONFIRMASI MULAI -->
+  <div id="modalStart" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-icon">🚀</div>
+      <h3 class="modal-title">Siap Memulai Ujian?</h3>
+      <p class="modal-body">Pastikan kamu sudah siap. Timer akan langsung berjalan setelah ujian dimulai dan tidak bisa dijeda.</p>
+      <div class="modal-buttons">
+        <button class="btn btn-ghost" onclick="closeModalStart()">Belum Siap</button>
+        <button class="btn btn-primary" onclick="startExam()">Ya, Mulai!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP KONFIRMASI AKHIRI -->
+  <div id="modalOverlay" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-icon">⚠️</div>
+      <h3 class="modal-title">Akhiri Ujian?</h3>
+      <p class="modal-body">Kamu masih memiliki waktu tersisa. Yakin ingin mengakhiri ujian sekarang?</p>
+      <div class="modal-buttons">
+        <button class="btn btn-ghost" onclick="closeModal()">Batalkan</button>
+        <button class="btn btn-danger" onclick="endExam()">Ya, Akhiri</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP WAKTU HABIS -->
+  <div id="timeupOverlay" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-icon">⏰</div>
+      <h3 class="modal-title">Waktu Habis!</h3>
+      <p class="modal-body">Waktu ujian telah berakhir. Jawaban kamu langsung dinilai.</p>
+      <div class="modal-buttons">
+        <button class="btn btn-primary" onclick="endExam()">Lihat Hasil</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP SOAL BELUM DIJAWAB -->
+  <div id="unansweredOverlay" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-icon">⚠️</div>
+      <h3 class="modal-title">Ada Soal Belum Dijawab!</h3>
+      <p class="modal-body">Soal berikut belum kamu jawab:</p>
+      <div id="unansweredList" class="unanswered-list"></div>
+      <p class="modal-body" style="margin-top:12px;">Kembali dan isi semua soal, atau tetap akhiri ujian?</p>
+      <div class="modal-buttons">
+        <button class="btn btn-primary" onclick="closeUnansweredModal()">Kembali Isi Soal</button>
+        <button class="btn btn-danger" onclick="forceEnd()">Tetap Akhiri</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="soal.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
