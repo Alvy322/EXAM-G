@@ -889,8 +889,8 @@ body {
 ::-webkit-scrollbar-thumb:hover { background: var(--blue-dark); }
 
 @media (max-width: 768px) {
-  .landing-card, .result-card { padding: 32px 24px; }
-  .landing-title { font-size: 40px; }
+  .landing-card, .result-card { padding: 28px 20px; }
+  .landing-title { font-size: 38px; }
   .exam-header { padding: 10px 14px; }
   .exam-name-badge { max-width: 110px; font-size: 11px; }
   .timer-text { font-size: 18px; }
@@ -901,7 +901,7 @@ body {
     min-width: unset;
     position: static;
     max-height: none;
-    padding: 16px;
+    padding: 12px 16px;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
@@ -911,17 +911,57 @@ body {
   .nav-panel-title { width: 100%; }
   .question-nav-grid { flex: 1; }
   .nav-legend { flex-direction: row; flex-wrap: wrap; gap: 8px; width: 100%; }
-  .question-area { padding: 20px 16px; }
-  .question-card { padding: 24px 20px; }
-  .question-text { font-size: 16px; }
-  .option-text   { font-size: 14px; }
+  .question-area { padding: 16px 12px; }
+  .question-card { padding: 20px 16px; }
+  .question-text { font-size: 15px; }
+  .option-text   { font-size: 13px; }
+  .option-item   { padding: 11px 13px; gap: 10px; }
   .result-stats  { gap: 8px; }
   .score-number  { font-size: 34px; }
   .history-item  { flex-direction: column; align-items: flex-start; }
-  .modal-card    { padding: 32px 22px; }
+  .modal-card    { padding: 28px 18px; }
+  .review-container, .history-container { padding: 20px 12px; }
+  .review-item   { padding: 16px 14px; }
+  .result-card   { padding: 28px 18px; }
+}
+
+@media (max-width: 480px) {
+  #page-landing { padding: 20px 12px; }
+  .landing-card { padding: 24px 16px; }
+  .landing-title { font-size: 32px; }
+  .landing-badge { font-size: 11px; padding: 5px 12px; }
+  .landing-subtitle { font-size: 13px; margin-bottom: 18px; }
+  .info-grid { gap: 8px; margin-bottom: 18px; }
+  .info-item { padding: 10px 12px; gap: 8px; }
+  .info-icon { font-size: 18px; }
+  .info-value { font-size: 13px; }
+  .notice-box { padding: 12px 14px; }
+  .input-group input { padding: 12px 14px; font-size: 14px; }
+  .btn-lg { font-size: 14px; padding: 12px 20px; }
+  .exam-header { gap: 6px; padding: 8px 10px; }
+  .exam-name-badge { max-width: 80px; font-size: 10px; padding: 5px 10px; }
+  .exam-timer-wrap { padding: 7px 10px; gap: 5px; }
+  .timer-text { font-size: 16px; min-width: 50px; }
+  .btn-sm { font-size: 11px; padding: 7px 12px; }
+  .question-number { font-size: 10px; padding: 4px 10px; }
+  .question-text { font-size: 14px; margin-bottom: 16px; }
+  .option-letter { min-width: 26px; height: 26px; font-size: 11px; }
+  .option-text { font-size: 12px; }
+  .question-counter { font-size: 12px; }
+  .result-card { padding: 24px 14px; }
+  .result-icon { font-size: 40px; }
+  .result-name { font-size: 20px; }
+  .result-score-circle { width: 130px; height: 130px; }
+  .score-number { font-size: 28px; }
+  .stat-val { font-size: 22px; }
+  .modal-card { padding: 24px 16px; }
+  .modal-title { font-size: 18px; }
+  .modal-body { font-size: 13px; }
 }
 
 @media (max-width: 380px) {
   .info-grid { grid-template-columns: 1fr; }
   .result-buttons { gap: 8px; }
+  .landing-title { font-size: 28px; }
+  .result-stats { flex-direction: column; gap: 8px; }
 }
